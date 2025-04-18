@@ -10,7 +10,6 @@ This repository contains an end-to-end pipeline for ingesting, cleaning, cluster
 - **Data Cleaning (02_Cleaning):** regex filter → spaCy NER gate → MiniLM semantic filter, with logging of row counts  
 - **Feature Engineering (03_Feature_Engineering):** build TF‑IDF and MiniLM embedding matrices, compare via silhouette  
 - **Clustering & Model Selection (04_Clustering):** elbow analysis, hyperparameter sweeps (K‑Means, Agglomerative, Spectral, HDBSCAN), evaluate Silhouette & Davies–Bouldin, finalize Agglomerative(n=5, average)  
-- **(Optional) Classification (05_Classification):** train/test Logistic Regression on MiniLM embeddings and cluster labels, report macro‑F1  
 
 ---
 
