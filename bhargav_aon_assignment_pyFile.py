@@ -734,12 +734,13 @@ for c in unique_clusters:
     # blank line for readability
     print()
 # 3) Map Agglomerative clusters to the five hazard categories
+# Fixed mapping based on actual cluster analysis output
 CLUSTER2HAZARD = {
-    0: "Earthquake",
-    1: "Flood",
-    2: "Volcano",
-    3: "Tornado",
-    4: "Wildfire"
+    0: "Flood",        # Cluster 0: flood-related terms
+    1: "Tornado",      # Cluster 1: tornado-related terms
+    2: "Earthquake",   # Cluster 2: earthquake-related terms
+    3: "Wildfire",     # Cluster 3: wildfire-related terms
+    4: "Volcano"       # Cluster 4: volcano-related terms
 }
 clean["cluster"]  = labels_full
 clean["category"] = clean["cluster"].map(CLUSTER2HAZARD)
