@@ -107,7 +107,17 @@ This cell loads the dataset from the specified CSV file into a pandas DataFrame.
 """
 
 # Define the path to the dataset CSV file
-CSV_PATH = "/content/Nat Cat Events.csv" # Make sure this path is correct in your environment!
+# Support both Colab (/content/) and local environments
+import os
+if os.path.exists("/content/Nat Cat Events.csv"):
+    CSV_PATH = "/content/Nat Cat Events.csv"
+elif os.path.exists("Nat Cat Events.csv"):
+    CSV_PATH = "Nat Cat Events.csv"
+else:
+    raise FileNotFoundError(
+        "Cannot find 'Nat Cat Events.csv'. Please ensure the file is in the current directory "
+        "or in /content/ (for Google Colab)."
+    )
 
 # Read the CSV file into a pandas DataFrame, specifying UTF-8 encoding
 raw = pd.read_csv(CSV_PATH, encoding="utf-8")
@@ -727,8 +737,10 @@ for c in unique_clusters:
     terms        = tfidf.get_feature_names_out()[top_idxs]
     print("  Top terms:", ", ".join(terms))
       # c) Sample headlines
-    samples = clean.loc[cluster_mask, "clean_title"].sample(3, random_state=42).tolist()
-    print("  Sample headlines:")
+    # Use min() to avoid crash if cluster has fewer than 3 samples
+    n_samples = min(3, count)
+    samples = clean.loc[cluster_mask, "clean_title"].sample(n_samples, random_state=42).tolist()
+    print(f"  Sample headlines ({n_samples} shown):")
     for s in samples:
         print("   •", s)
     # blank line for readability
